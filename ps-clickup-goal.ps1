@@ -6,7 +6,7 @@
 # https://ss64.com/ps/syntax-preference.html
 $DebugPreference   = @("SilentlyContinue","Continue","Inquire","Stop")[1]
 $WarningPreference = @("SilentlyContinue","Continue","Inquire","Stop")[1]
-$ErrorActionPreference = @("Continue","Ignore","Inquire","SilentlyContinue","Stop","Suspend")[2]
+$ErrorActionPreference = @("Continue","Ignore","Inquire","SilentlyContinue","Stop","Suspend")[0]
 $InformationPreference = @("Continue","Inquire","SilentlyContinue","Stop")[0]
 
 # import modules
@@ -60,12 +60,16 @@ $UIItems | ForEach-Object {
     $goal = ($goals | Where-Object -Property goalID -match -Value $ui.goalID)
 
     $img = Get-Tile `
-        -TileID $goal.goalID `        -Title ($goal.team + " ~ " + $goal.name).ToLower() `
+        -TileID $goal.goalID `
+        -Title ($goal.team + " ~ " + $goal.name).ToLower() `
         -StartDate $goal.start_date `
         -DueDate   $goal.due_date `
         -Desc $goal.description `
         -Progress $goal.percent_completed `
-        -Width $ui.width `        -ProgressWidth $ui.progressWidth `        -Height $ui.height `        -ImgDir "$PSScriptRoot\cache"
+        -Width $ui.width `
+        -ProgressWidth $ui.progressWidth `
+        -Height $ui.height `
+        -ImgDir "$PSScriptRoot\cache"
 
     $graphics.DrawImage($img,$ui.left,$ui.top)
     
